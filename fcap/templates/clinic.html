@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crescent Clinics - Clinic Portal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { 
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); 
+            color: white; 
+            padding: 30px; 
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 { font-size: 32px; font-weight: 700; margin-bottom: 10px; }
+        .header p { opacity: 0.9; font-size: 18px; }
+        .nav-links {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .nav-link {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { background: rgba(255,255,255,0.3); }
+        .dashboard { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+        }
+        .card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { color: #4f46e5; margin-bottom: 15px; font-size: 20px; }
+        .card p { color: #666; line-height: 1.6; margin-bottom: 15px; }
+        .btn { 
+            background: #4f46e5; 
+            color: white; 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn:hover { background: #4338ca; transform: translateY(-2px); }
+        .stats { display: flex; justify-content: space-around; margin: 20px 0; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 24px; font-weight: 700; color: #4f46e5; }
+        .stat-label { font-size: 14px; color: #666; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="nav-links">
+                <a href="/" class="nav-link">Patient Portal</a>
+                <a href="/admin" class="nav-link">Admin Portal</a>
+            </div>
+
+            <h1>🏥 Clinic Management Portal</h1>
+            <p>Manage appointments, view patient interactions, and monitor AI performance</p>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <h3>📅 Appointments</h3>
+                <p>View and manage patient appointments</p>
+                <button class="btn" onclick="viewAppointments()">View Appointments</button>
+            </div>
+
+            <div class="card">
+                <h3>💬 Patient Conversations</h3>
+                <p>Review AI interactions with patients</p>
+                <button class="btn" onclick="viewConversations()">View Conversations</button>
+            </div>
+
+            <div class="card">
+                <h3>🤖 AI Health</h3>
+                <p>Monitor AI system performance</p>
+                <button class="btn" onclick="checkAIHealth()">Check AI Status</button>
+            </div>
+
+            <div class="card">
+                <h3>📊 Analytics</h3>
+                <p>View platform usage statistics</p>
+                <button class="btn" onclick="viewAnalytics()">View Analytics</button>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="totalAppointments">0</div>
+                <div class="stat-label">Total Appointments</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="todayAppointments">0</div>
+                <div class="stat-label">Today's Appointments</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="aiStatus">Checking...</div>
+                <div class="stat-label">AI Status</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function viewAppointments() {
+            try {
+                const response = await fetch('/appointments');
+                const appointments = await response.json();
+                alert(`Found ${appointments.length} appointments`);
+            } catch (error) {
+                alert('Error loading appointments');
+            }
+        }
+
+        async function viewConversations() {
+            alert('Conversation history feature coming soon');
+        }
+
+        async function checkAIHealth() {
+            try {
+                const response = await fetch('/health/llm');
+                const health = await response.json();
+                if (health.ok) {
+                    alert(`AI Status: Healthy\\nSample: ${health.sample}`);
+                } else {
+                    alert(`AI Status: Error\\n${health.error}`);
+                }
+            } catch (error) {
+                alert('Error checking AI health');
+            }
+        }
+
+        function viewAnalytics() {
+            alert('Analytics dashboard coming soon');
+        }
+
+        // Load initial data
+        async function loadData() {
+            try {
+                const response = await fetch('/appointments');
+                const appointments = await response.json();
+                document.getElementById('totalAppointments').textContent = appointments.length;
+                document.getElementById('todayAppointments').textContent = appointments.filter(apt => 
+                    new Date(apt.appointment_date).toDateString() === new Date().toDateString()
+                ).length;
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+
+            try {
+                const response = await fetch('/health/llm');
+                const health = await response.json();
+                document.getElementById('aiStatus').textContent = health.ok ? 'Healthy' : 'Error';
+            } catch (error) {
+                document.getElementById('aiStatus').textContent = 'Error';
+            }
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crescent Clinics - Patient Portal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header { 
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); 
+            color: white; 
+            padding: 20px; 
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+            position: relative;
+        }
+        .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+        .header p { opacity: 0.9; font-size: 16px; }
+        .ai-badge {
+            background: rgba(34, 197, 94, 0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+            display: inline-block;
+        }
+        .nav-links {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .nav-link {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .nav-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .chat-container { 
+            background: white; 
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .messages { 
+            flex: 1; 
+            padding: 20px; 
+            overflow-y: auto; 
+            background: #f8fafc;
+            min-height: 400px;
+        }
+        .message { 
+            margin-bottom: 16px; 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 12px;
+        }
+        .message.user { flex-direction: row-reverse; }
+        .message-avatar { 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 14px; 
+            font-weight: 600;
+        }
+        .message.user .message-avatar { background: #4f46e5; color: white; }
+        .message.ai .message-avatar { background: #e5e7eb; color: #6b7280; }
+        .message-content { 
+            max-width: 70%; 
+            padding: 12px 16px; 
+            border-radius: 18px; 
+            font-size: 14px; 
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+        .message.user .message-content { 
+            background: #4f46e5; 
+            color: white; 
+            border-bottom-right-radius: 4px;
+        }
+        .message.ai .message-content { 
+            background: white; 
+            color: #374151; 
+            border: 1px solid #e5e7eb; 
+            border-bottom-left-radius: 4px;
+        }
+        .input-container { 
+            padding: 20px; 
+            background: white; 
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .message-input { 
+            flex: 1; 
+            padding: 12px 16px; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 24px; 
+            font-size: 14px; 
+            outline: none;
+        }
+        .message-input:focus { 
+            border-color: #4f46e5; 
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        .send-btn { 
+            background: #4f46e5; 
+            color: white; 
+            width: 48px; 
+            height: 48px; 
+            border-radius: 50%; 
+            border: none; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+        .send-btn:hover { background: #4338ca; }
+        .send-btn:disabled { 
+            background: #d1d5db; 
+            cursor: not-allowed;
+        }
+        .quick-actions {
+            padding: 16px 20px;
+            background: #f1f5f9;
+            border-top: 1px solid #e2e8f0;
+        }
+        .quick-actions-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .chip {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .chip:hover {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="nav-links">
+                <a href="/clinic" class="nav-link">Clinic Portal</a>
+                <a href="/admin" class="nav-link">Admin Portal</a>
+            </div>
+
+            <h1>🏥 Crescent Clinics</h1>
+            <p>Mon-Fri 9AM-5PM • Sat 9AM-2PM • 24/7 Urgent Care Available</p>
+            <div class="ai-badge">🤖 GPT-OSS-20B Powered AI Assistant</div>
+        </div>
+
+        <div class="chat-container">
+            <div class="messages" id="messages">
+                <div class="message ai">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <strong>Welcome to Crescent Clinics! 👋</strong><br>
+                        I'm Dr. Sarah, your AI assistant powered by GPT-OSS-20B. I can help you book visits, answer questions, and provide clinic information. What do you need today?
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <div class="quick-actions-title">Quick Actions</div>
+                <div class="chips">
+                    <div class="chip" onclick="sendQuickMessage('Book appointment')">📅 Book Appointment</div>
+                    <div class="chip" onclick="sendQuickMessage('What are your hours?')">🕒 Hours</div>
+                    <div class="chip" onclick="sendQuickMessage('I have a headache')">🩺 Health Concern</div>
+                    <div class="chip" onclick="sendQuickMessage('Contact info')">📞 Contact</div>
+                    <div class="chip" onclick="sendQuickMessage('What is artificial intelligence?')">🤖 Test AI</div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <input type="text" id="messageInput" class="message-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                <button class="send-btn" onclick="sendMessage()" id="sendBtn">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sessionId = 'session_' + Date.now();
+        let isTyping = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Chat initialized');
+            const input = document.getElementById('messageInput');
+            if (input) {
+                input.focus();
+                console.log('Input focused');
+            }
+        });
+
+        function addMessage(message, isUser = false) {
+            console.log('Adding message:', message, 'isUser:', isUser);
+            const messages = document.getElementById('messages');
+
+            if (!messages) {
+                console.error('Messages container not found!');
+                return;
+            }
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
+
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${isUser ? '👤' : '🤖'}</div>
+                <div class="message-content">${message}</div>
+            `;
+
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+            console.log('Message added successfully');
+        }
+
+        function sendQuickMessage(message) {
+            const input = document.getElementById('messageInput');
+            if (input) {
+                input.value = message;
+                sendMessage();
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const sendBtn = document.getElementById('sendBtn');
+
+            if (!input || !sendBtn) {
+                console.error('Elements not found');
+                return;
+            }
+
+            const message = input.value.trim();
+            if (!message || isTyping) return;
+
+            console.log('Sending:', message);
+            addMessage(message, true);
+            input.value = '';
+            sendBtn.disabled = true;
+            isTyping = true;
+
+            try {
+                console.log('Making API call...');
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({message: message, session_id: sessionId})
+                });
+
+                console.log('Response status:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Response data:', data);
+                console.log('Adding response message:', data.response);
+
+                addMessage(data.response);
+
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('Sorry, I encountered an error. Please try again.');
+            } finally {
+                sendBtn.disabled = false;
+                isTyping = false;
+                input.focus();
+            }
+        }
+    </script>
+</body>
+</html>

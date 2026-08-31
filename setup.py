@@ -43,7 +43,7 @@ def main():
     
     print("\n🎉 Setup completed successfully!")
     print("\nTo start the platform:")
-    print("  python3 robust_gpt_oss_platform.py")
+    print("  python3 main.py")
     print("\nAccess points:")
     print("  Patient Interface: http://localhost:8000")
     print("  Clinic Interface: http://localhost:8000/clinic")

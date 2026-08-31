@@ -1,5 +1,10 @@
 # FCAP Enterprise - Healthcare Automation Platform
 
+[![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-async-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Model](https://img.shields.io/badge/model-GPT--OSS--20B-412991?logo=openai&logoColor=white)](https://huggingface.co/openai/gpt-oss-20b)
+[![Tests](https://img.shields.io/badge/tests-15%20passing-brightgreen)](tests/)
+
 A robust, AI-powered healthcare automation platform built with FastAPI and GPT-OSS-20B. This platform provides intelligent patient assistance, appointment booking, and clinic management capabilities.
 
 ## 🏥 Features
@@ -43,12 +48,15 @@ A robust, AI-powered healthcare automation platform built with FastAPI and GPT-O
 
 3. **Set up environment variables**
    ```bash
+   cp .env.example .env      # then fill in your token
    export HF_TOKEN='your_huggingface_token_here'
    ```
 
+   The token is read from the environment at startup. Never commit it to source.
+
 4. **Run the platform**
    ```bash
-   python3 robust_gpt_oss_platform.py
+   python3 main.py
    ```
 
 5. **Access the platform**
@@ -75,19 +83,24 @@ The platform uses GPT-OSS-20B via Hugging Face Router for intelligent patient in
 ## 📁 Project Structure
 
 ```
-fcap-enterprise/
-├── robust_gpt_oss_platform.py    # Main application (FastAPI)
+fcap/
+├── main.py                       # Entry point: python3 main.py
 ├── requirements.txt              # Python dependencies
+├── .env.example                  # Environment variables to copy and fill in
 ├── README.md                     # This file
-├── .gitignore                    # Git ignore rules
-├── llm/
-│   └── gpt_oss_client.py         # GPT-OSS-20B client
-├── routes/
-│   └── health.py                 # Health check endpoints
-├── scripts/
-│   └── diagnose_llm.sh          # LLM diagnostics script
+├── DEPLOYMENT.md                 # Deployment guide
+├── fcap/
+│   ├── config.py                 # Settings read from the environment
+│   ├── prompts.py                # System prompt and response validation rules
+│   ├── llm.py                    # GPT-OSS-20B client and response handling
+│   ├── database.py               # SQLite storage for chats and appointments
+│   ├── api.py                    # FastAPI app: interfaces and endpoints
+│   └── templates/
+│       ├── patient.html          # Patient portal
+│       ├── clinic.html           # Clinic dashboard
+│       └── admin.html            # Admin console
 └── tests/
-    └── test_llm_integration.py   # Integration tests
+    └── test_fcap.py              # 15 tests
 ```
 
 ## 🔧 Configuration

@@ -30,7 +30,7 @@
 
 ### Production Configuration
 
-1. **Update robust_gpt_oss_platform.py**
+1. **Update main.py**
    - Set `reload=False` in uvicorn.run()
    - Add production logging configuration
    - Configure proper error handling
@@ -55,7 +55,7 @@
    RUN pip install -r requirements.txt
    COPY . .
    EXPOSE 8000
-   CMD ["python3", "robust_gpt_oss_platform.py"]
+   CMD ["python3", "main.py"]
    ```
 
 2. **Build and run**
