@@ -7,7 +7,7 @@
 
 A robust, AI-powered healthcare automation platform built with FastAPI and GPT-OSS-20B. This platform provides intelligent patient assistance, appointment booking, and clinic management capabilities.
 
-## 🏥 Features
+## Features
 
 ### Patient Interface
 - **AI-Powered Chat**: GPT-OSS-20B powered virtual assistant for patient interactions
@@ -26,7 +26,7 @@ A robust, AI-powered healthcare automation platform built with FastAPI and GPT-O
 - **User Management**: Control access permissions and user roles
 - **Analytics**: Platform usage and performance analytics
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.8+
@@ -65,7 +65,7 @@ A robust, AI-powered healthcare automation platform built with FastAPI and GPT-O
    - Admin Interface: http://localhost:8000/admin
    - Health Check: http://localhost:8000/health/llm
 
-## 🤖 AI Integration
+## AI Integration
 
 ### GPT-OSS-20B Integration
 The platform uses GPT-OSS-20B via Hugging Face Router for intelligent patient interactions:
@@ -80,7 +80,7 @@ The platform uses GPT-OSS-20B via Hugging Face Router for intelligent patient in
 - Automatic fallback handling (no generic responses)
 - Performance monitoring and logging
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 fcap/
@@ -103,7 +103,7 @@ fcap/
     └── test_fcap.py              # 15 tests
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 - `HF_TOKEN`: Hugging Face API token (required)
@@ -114,7 +114,7 @@ fcap/
 - Automatic database initialization on startup
 - Data persistence across sessions
 
-## 🧪 Testing
+## Testing
 
 ### Run Integration Tests
 ```bash
@@ -132,7 +132,7 @@ curl -X POST http://localhost:8000/chat \
   -d '{"message": "Book appointment", "session_id": "test123"}'
 ```
 
-## 🚨 Emergency Handling
+## Emergency Handling
 
 The platform includes intelligent emergency detection:
 - Automatic recognition of medical emergencies
@@ -140,14 +140,14 @@ The platform includes intelligent emergency detection:
 - Context-aware emergency responses
 - No fallback to generic responses
 
-## 🔒 Security & Privacy
+## Security & Privacy
 
 - **No Fallbacks**: GPT-OSS-20B or clear error messages
 - **Data Protection**: Secure conversation storage
 - **API Security**: Token-based authentication
 - **Error Handling**: Graceful degradation with clear messaging
 
-## 📊 Monitoring
+## Monitoring
 
 ### Health Endpoints
 - `/health/llm`: AI system health check
@@ -159,7 +159,7 @@ The platform includes intelligent emergency detection:
 - Error tracking and performance monitoring
 - Request/response logging for audit trails
 
-## 🛠️ Development
+## Development
 
 ### Adding New Features
 1. Fork the repository
@@ -174,15 +174,15 @@ The platform includes intelligent emergency detection:
 - Include docstrings for functions
 - Maintain test coverage
 
-## 📝 License
+## License
 
 This project is private and intended for collaboration only. All rights reserved.
 
-## 🤝 Contributing
+## Contributing
 
 This is a private repository for collaboration. Please contact the repository owner for access and contribution guidelines.
 
-## 📞 Support
+## Support
 
 For technical support or questions:
 - Check the health endpoint: `/health/llm`
@@ -191,4 +191,4 @@ For technical support or questions:
 
 ---
 
-**Built with ❤️ for healthcare automation**
+**Built with for healthcare automation**

@@ -1,6 +1,6 @@
 # FCAP Enterprise Deployment Guide
 
-## 🚀 Production Deployment
+## Production Deployment
 
 ### Prerequisites
 - Python 3.8+

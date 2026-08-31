@@ -12,7 +12,7 @@ from .prompts import (HEALTHCARE_INDICATORS, RESPONSE_PREFIXES,
 logger = logging.getLogger(__name__)
 
 UNAVAILABLE_MESSAGE = (
-    "🚨 I'm currently experiencing technical difficulties with my AI system. "
+    "I'm currently experiencing technical difficulties with my AI system. "
     "Please try again in a moment, or contact our clinic directly at "
     f"{config.CLINIC_PHONE} for immediate assistance."
 )

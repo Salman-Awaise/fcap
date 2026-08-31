@@ -194,17 +194,17 @@
                 <a href="/admin" class="nav-link">Admin Portal</a>
             </div>
 
-            <h1>🏥 Crescent Clinics</h1>
+            <h1>Crescent Clinics</h1>
             <p>Mon-Fri 9AM-5PM • Sat 9AM-2PM • 24/7 Urgent Care Available</p>
-            <div class="ai-badge">🤖 GPT-OSS-20B Powered AI Assistant</div>
+            <div class="ai-badge">GPT-OSS-20B Powered AI Assistant</div>
         </div>
 
         <div class="chat-container">
             <div class="messages" id="messages">
                 <div class="message ai">
-                    <div class="message-avatar">🤖</div>
+                    <div class="message-avatar">AI</div>
                     <div class="message-content">
-                        <strong>Welcome to Crescent Clinics! 👋</strong><br>
+                        <strong>Welcome to Crescent Clinics!</strong><br>
                         I'm Dr. Sarah, your AI assistant powered by GPT-OSS-20B. I can help you book visits, answer questions, and provide clinic information. What do you need today?
                     </div>
                 </div>
@@ -213,17 +213,17 @@
             <div class="quick-actions">
                 <div class="quick-actions-title">Quick Actions</div>
                 <div class="chips">
-                    <div class="chip" onclick="sendQuickMessage('Book appointment')">📅 Book Appointment</div>
-                    <div class="chip" onclick="sendQuickMessage('What are your hours?')">🕒 Hours</div>
-                    <div class="chip" onclick="sendQuickMessage('I have a headache')">🩺 Health Concern</div>
-                    <div class="chip" onclick="sendQuickMessage('Contact info')">📞 Contact</div>
-                    <div class="chip" onclick="sendQuickMessage('What is artificial intelligence?')">🤖 Test AI</div>
+                    <div class="chip" onclick="sendQuickMessage('Book appointment')">Book Appointment</div>
+                    <div class="chip" onclick="sendQuickMessage('What are your hours?')">Hours</div>
+                    <div class="chip" onclick="sendQuickMessage('I have a headache')">Health Concern</div>
+                    <div class="chip" onclick="sendQuickMessage('Contact info')">Contact</div>
+                    <div class="chip" onclick="sendQuickMessage('What is artificial intelligence?')">Test AI</div>
                 </div>
             </div>
 
             <div class="input-container">
                 <input type="text" id="messageInput" class="message-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
-                <button class="send-btn" onclick="sendMessage()" id="sendBtn">➤</button>
+                <button class="send-btn" onclick="sendMessage()" id="sendBtn">&rarr;</button>
             </div>
         </div>
     </div>
@@ -255,7 +255,7 @@
             messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
 
             messageDiv.innerHTML = `
-                <div class="message-avatar">${isUser ? '👤' : '🤖'}</div>
+                <div class="message-avatar">${isUser ? 'Me' : 'AI'}</div>
                 <div class="message-content">${message}</div>
             `;
 
